@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration
+	xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
+	
+<!-- <timestamp key="ymd" datePattern="yyyyMMdd" /> -->
+
+	<!-- CONSOLE Appender -->
+	<appender name="console"
+		class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{yyyy-MM-dd HH:mm:ss.SSS}  %-5p  ${PID}  -- [%t]  %l : %m%n" />
+		</layout>
+		<filter class="com.example.demo.MyLog4jFilter" />
+	</appender>
+
+
+	<appender name="rollFile" class="org.apache.log4j.DailyRollingFileAppender">
+		<!-- class="org.apache.log4j.RollingFileAppender"> -->
+		<!-- <rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy"> -->
+		<param name="File" value="D:/logs/custom-logging.log" />
+		<!-- <param name="fileNamePattern" value="D:/logs/custom-logging-%d{yyyy-MM-dd-hh-mm}.log" /> -->
+		<!-- </rollingPolicy> -->
+		<param name="Append" value="true" />
+		<param name="ImmediateFlush" value="true" />
+		<!--  <param name="FilePattern" value="custom-logging'_'yyyy-MM-dd-HH'.log'" />  -->
+		  <param name="DatePattern" value="'_'yyyy-MM-dd-HH'.log'" />  
+		<!-- <param name="appendToFile" value="true" /> -->
+
+		<!-- <triggeringPolicy class="org.apache.log4j.rolling.SizeBasedTriggeringPolicy"> -->
+		<!-- <param name="MaxFileSize" value="100KB" /> -->
+		<!-- <param name="MaxHistory" value="60" /> -->
+		<!-- </triggeringPolicy> -->
+		<!-- <param name="MaxFileSize" value="10KB" /> -->
+		<!-- <param name="MaxBackupIndex" value="10" /> -->
+		 
+
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{yyyd-MM-dd HH:mm:ss.SSS}  %-5p  ${PID} --   [%t]  %l : %m%n" />
+		</layout>
+		<filter class="com.example.demo.MyLog4jFilter" />
+	</appender>
+
+	<!-- <appender name="RFILE" class="org.apache.log4j.RollingFileAppender"> 
+		<param name="Append" value="true" /> <rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy"> 
+		<param name="ActiveFileName" value="D:/logs/custom-logging.log" /> <param 
+		name="FileNamePattern" value="D:/logs/custom-logging-%d{yyyy-MM-dd-hh-mm}.log" 
+		/> </rollingPolicy> <triggeringPolicy class="org.apache.log4j.rolling.SizeBasedTriggeringPolicy"> 
+		<param name="MaxFileSize" value="10 KB" /> <param name="MaxHistory" value="60" 
+		/> </triggeringPolicy> <layout class="org.apache.log4j.PatternLayout"> <param 
+		name="ConversionPattern" value="%d{yyyd-MM-dd HH:mm:ss.SSS} %-5p [PID: ${PID}] 
+		[%t] %l : %msg%n" /> </layout> </appender> -->
+
+
+	<!-- <logger name="com.example.demo.CrunchifyLog4jLevel" class="com.example.demo.CrunchifyLog4jLevel" 
+		> <level value="CRUNCHIFY"/> <appender-ref ref="FILE"/> </logger> -->
+
+	<!-- <logger name="com.example.demo" additivity="true"> <level value="CRUNCHIFY" 
+		/> <appender-ref ref="rollFile" /> </logger> -->
+
+
+	<!-- Limit Category and Specify Priority -->
+	<category name="com.example.demo">
+		<priority value="TRACE"
+			class="com.example.demo.CrunchifyLog4jLevel" />
+		<appender-ref ref="rollFile" />
+	</category>
+
+	<!-- Setup the Root category -->
+	<root>
+		<appender-ref ref="console" />
+		<appender-ref ref="rollFile" />
+		<!-- <appender-ref ref="RFILE" /> -->
+	</root>
+</log4j:configuration>
